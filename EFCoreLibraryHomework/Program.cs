@@ -13,10 +13,10 @@ namespace EFCoreLibraryHomework
             {
 
                 //1) Выведите список должников. 
-                var debtors = from users in context.Users
+                var debtors = (from users in context.Users
                               join tickets in context.Ticket on users.Id equals tickets.UserId
                               join book in context.Books on tickets.BookId equals book.Id
-                              select users;
+                              select users).ToList();
 
                 foreach(var user in debtors)
                 {
@@ -27,11 +27,11 @@ namespace EFCoreLibraryHomework
 
 
                 //2) Выведите список авторов книги №3 (по порядку из таблицы ‘Book’). 
-                /*var authorOfBook = from authors in context.Authors
+                /*var authorOfBook = (from authors in context.Authors
                                    join bookAuthor in context.BookAuthor on authors.Id equals bookAuthor.AuthorId
                                    join books in context.Books on bookAuthor.BookId equals books.Id  
                                    where books.Id == 3
-                                   select authors;
+                                   select authors).ToList();
 
                 foreach (var author in authorOfBook)
                 {
@@ -41,9 +41,9 @@ namespace EFCoreLibraryHomework
 
 
                 // 3) Выведите список книг, которые доступны в данный момент.
-                /*var availableBooks = from book in context.Books
+                /*var availableBooks = (from book in context.Books
                                      where !context.Ticket.Any(ticket => (ticket.BookId == book.Id))
-                                     select book;
+                                     select book).ToList();
 
                 foreach (var book in availableBooks)
                 {
@@ -53,11 +53,11 @@ namespace EFCoreLibraryHomework
 
 
                 // 4) Вывести список книг, которые на руках у пользователя №2.
-                /*var userBooks = from users in context.Users
+                /*var userBooks = (from users in context.Users
                                 join tickets in context.Ticket on users.Id equals tickets.UserId
                                 join books in context.Books on tickets.BookId equals books.Id
                                 where users.Id == 2
-                                select books;
+                                select books).ToList();
 
                 foreach(var book in userBooks)
                 {
